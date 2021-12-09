@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Fast_Checkout
+ *
+ * PHP version 7.3
+ *
+ * @package   Fast_Checkout
+ * @author    Fast <hi@fast.co>
+ * @copyright 2021 Copyright Fast AF, Inc., https://www.fast.co/
+ * @license   https://opensource.org/licenses/OSL-3.0 OSL-3.0
+ * @link      https://www.fast.co/
+ */
+-->
+<config>
+    <group id="fast_checkout_cron_jobs">
+        <schedule_generate_every>1</schedule_generate_every>
+        <schedule_ahead_for>4</schedule_ahead_for>
+        <schedule_lifetime>2</schedule_lifetime>
+        <history_cleanup_every>10</history_cleanup_every>
+        <history_success_lifetime>60</history_success_lifetime>
+        <history_failure_lifetime>600</history_failure_lifetime>
+        <use_separate_process>1</use_separate_process>
+    </group>
+</config>

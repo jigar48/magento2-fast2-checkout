@@ -1,0 +1,61 @@
+<?php
+/**
+ * Fast_Checkout
+ *
+ * PHP version 7.3
+ *
+ * @package   Fast_Checkout
+ * @author    Fast <hi@fast.co>
+ * @copyright 2021 Copyright Fast AF, Inc., https://www.fast.co/
+ * @license   https://opensource.org/licenses/OSL-3.0 OSL-3.0
+ * @link      https://www.fast.co/
+ */
+
+declare(strict_types=1);
+
+use Fast\Checkout\Block\Adminhtml\System\Config\RestApiLog\CleanTable;
+
+/** @var CleanTable $block */
+?>
+<script>
+    require(['prototype'], function () {
+
+//<![CDATA[
+        function cleanTable() {
+            var cleantableMessage = $('cleantable_result');
+            new Ajax.Request('<?= $block->escapeJs($block->escapeUrl($block->getAjaxUrl())) ?>', {
+                parameters: '',
+                onSuccess: function (response) {
+                    var result = '<?= $block->escapeJs($block->escapeHtml(__('Error during Table Clean.'))) ?>';
+                    try {
+                        if (response.responseText.isJSON()) {
+                            response = response.responseText.evalJSON();
+                            // result = response.message;
+                        }
+                        if (response.valid == 1) {
+                            cleantableMessage.removeClassName('hidden').removeClassName('admin__field-error').addClassName('note');
+                            cleantableMessage.setStyle({color: 'green'});
+                            result = 'Cleantable Success';
+                        } else {
+                            cleantableMessage.removeClassName('hidden').addClassName('admin__field-error');
+                        }
+                    } catch (e) {
+                        cleantableMessage.removeClassName('hidden').addClassName('admin__field-error');
+                    }
+                    cleantableMessage.update(result);
+                }
+            });
+        }
+
+        window.cleanTable = cleanTable;
+//]]>
+
+    });
+</script>
+<div class="actions actions-clean-table">
+    <p class="admin__field-error hidden" id="cleantable_result" style="margin-bottom:10px;"></p>
+    <button onclick="cleanTable(); return false;" class="action-clean-table" type="button" id="<?= /* @noEscape */
+    $block->getHtmlId() ?>">
+        <span><?= $block->escapeHtml($block->getButtonLabel()) ?></span>
+    </button>
+</div>

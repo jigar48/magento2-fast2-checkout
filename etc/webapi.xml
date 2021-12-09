@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+   <route url="/V1/fast-checkout/dorequestlog" method="POST">
+        <service class="Fast\Checkout\Api\DoRequestLogRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Fast_Checkout::DoRequestLog_save"/>
+        </resources>
+    </route>
+    <route url="/V1/fast-checkout/dorequestlog/search" method="GET">
+        <service class="Fast\Checkout\Api\DoRequestLogRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Fast_Checkout::DoRequestLog_view"/>
+        </resources>
+    </route>
+    <route url="/V1/fast-checkout/dorequestlog/:dorequestlogId" method="GET">
+        <service class="Fast\Checkout\Api\DoRequestLogRepositoryInterface" method="get"/>
+        <resources>
+            <resource ref="Fast_Checkout::DoRequestLog_view"/>
+        </resources>
+    </route>
+    <route url="/V1/fast-checkout/dorequestlog/:dorequestlogId" method="PUT">
+        <service class="Fast\Checkout\Api\DoRequestLogRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Fast_Checkout::DoRequestLog_update"/>
+        </resources>
+    </route>
+    <route url="/V1/fast-checkout/dorequestlog/:dorequestlogId" method="DELETE">
+        <service class="Fast\Checkout\Api\DoRequestLogRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="Fast_Checkout::DoRequestLog_delete"/>
+        </resources>
+    </route>
+</routes>

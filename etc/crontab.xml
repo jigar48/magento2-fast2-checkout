@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Fast_Checkout
+ *
+ * PHP version 7.3
+ *
+ * @package   Fast_Checkout
+ * @author    Fast <hi@fast.co>
+ * @copyright 2021 Copyright Fast AF, Inc., https://www.fast.co/
+ * @license   https://opensource.org/licenses/OSL-3.0 OSL-3.0
+ * @link      https://www.fast.co/
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="fast_checkout_cron_jobs">
+        <job name="fast_checkout_rest_api_log_table_clean"
+             instance="Fast\Checkout\Cron\RestApiLog\CleanTableCron" method="execute">
+            <config_path>fast_checkout/rest_api_log/table_clean_cron</config_path>
+        </job>
+        <job name="fast_checkout_resendfailedrequest" instance="Fast\Checkout\Cron\Fast\ResendFailedRequest"
+             method="execute">
+            <config_path>fast_integration/fast/retry_failures_cron</config_path>
+        </job>
+    </group>
+</config>

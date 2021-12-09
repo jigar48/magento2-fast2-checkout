@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Fast_Checkout
+ *
+ * PHP version 7.3
+ *
+ * @package   Fast_Checkout
+ * @author    Fast <hi@fast.co>
+ * @copyright 2021 Copyright Fast AF, Inc., https://www.fast.co/
+ * @license   https://opensource.org/licenses/OSL-3.0 OSL-3.0
+ * @link      https://www.fast.co/
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="fast_checkout_rest_api_log" resource="default" engine="innodb" comment="Fast REST API Log">
+        <column xsi:type="int" name="api_log_id" padding="11" unsigned="true" nullable="false" identity="true"
+                comment="API Log ID"/>
+        <column xsi:type="varchar" name="source" nullable="false" length="255" comment="Source"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="API Log Creation Time"/>
+        <column xsi:type="varchar" name="method" nullable="false" length="255" comment="Method"/>
+        <column xsi:type="varchar" name="path" nullable="false" length="255" comment="Path"/>
+        <column xsi:type="text" name="content" nullable="true" comment="Content"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="api_log_id"/>
+        </constraint>
+    </table>
+    <table name="fast_checkout_dorequestlog" resource="default" engine="innodb"
+           comment="fast_checkout_dorequestlog Table">
+        <column xsi:type="smallint" name="dorequestlog_id" padding="6" unsigned="true" nullable="false" identity="true"
+                comment="Entity Id"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="dorequestlog_id"/>
+        </constraint>
+        <column name="request_id" nullable="false" xsi:type="varchar" comment="request_id" length="255"/>
+        <column name="body" nullable="false" xsi:type="text" comment="body"/>
+        <column name="attempts" nullable="false" xsi:type="smallint" comment="attempts" default="1"/>
+        <column name="status" nullable="false" xsi:type="smallint" comment="status"/>
+        <column name="response_content" nullable="false" xsi:type="text" comment="responseContent"/>
+        <column name="priority" nullable="true" xsi:type="int" comment="priority" default="0" identity="false"/>
+        <column name="created_at" nullable="false" xsi:type="timestamp" comment="created_at"
+                default="CURRENT_TIMESTAMP"/>
+        <column name="updated_at" nullable="false" xsi:type="datetime" comment="updated_at" default="CURRENT_TIMESTAMP"
+                on_update="true"/>
+        <column name="retry_required" nullable="false" xsi:type="smallint" comment="retry_required" default="0"/>
+        <column name="uri_endpoint" nullable="false" xsi:type="varchar" comment="uri_endpoint" length="255"/>
+        <column name="request_method" nullable="false" xsi:type="varchar" comment="request_method" length="255"/>
+    </table>
+    <table name="sales_order" resource="default" engine="innodb">
+        <column xsi:type="varchar" name="fast_order_id" length="100" nullable="true" comment="FAST Order Id"/>
+    </table>
+    <table name="quote" resource="default" engine="innodb">
+        <column xsi:type="varchar" name="fast_order_id" length="100" nullable="true" comment="FAST Order Id"/>
+    </table>
+    <table name="sales_order_grid" resource="default" engine="innodb">
+        <column xsi:type="varchar" name="fast_order_id" length="100"  nullable="true" comment="FAST Order Id"/>
+    </table>
+    <table name="sales_order_item" resource="default" engine="innodb">
+        <column xsi:type="varchar" name="fast_order_item_uuid" length="100" nullable="true"
+                comment="FAST Order Item Id"/>
+    </table>
+    <table name="quote_item" resource="default" engine="innodb">
+        <column xsi:type="varchar" name="fast_order_item_uuid" length="100" nullable="true"
+                comment="FAST Order Item Id"/>
+    </table>
+    <table name="sales_shipment_item" resource="default" engine="innodb">
+        <column xsi:type="varchar" name="fast_order_item_uuid" length="100" nullable="true"
+                comment="FAST Order Item Id"/>
+    </table>
+</schema>

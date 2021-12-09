@@ -1,0 +1,59 @@
+<?php
+/**
+ * Fast_Checkout
+ *
+ * PHP version 7.3
+ *
+ * @package   Fast_Checkout
+ * @author    Fast <hi@fast.co>
+ * @copyright 2021 Copyright Fast AF, Inc., https://www.fast.co/
+ * @license   https://opensource.org/licenses/OSL-3.0 OSL-3.0
+ * @link      https://www.fast.co/
+ */
+
+declare(strict_types=1);
+
+/** @var Activation $block */
+?>
+<script>
+    require(['prototype'], function () {
+
+//<![CDATA[
+        function activateSend() {
+            var activationMessage = $('activation_result');
+            new Ajax.Request('<?= $block->escapeJs($block->escapeUrl($block->getAjaxUrl())) ?>', {
+                parameters: '',
+                onSuccess: function (response) {
+                    var result = '<?= $block->escapeJs($block->escapeHtml(__('Error during Activation.'))) ?>';
+                    try {
+                        if (response.responseText.isJSON()) {
+                            response = response.responseText.evalJSON();
+                            // result = response.message;
+                        }
+                        if (response.valid == 1) {
+                            activationMessage.removeClassName('hidden').removeClassName('admin__field-error').addClassName('note');
+                            activationMessage.setStyle({color: 'green'});
+                            result = 'Activation Success';
+                        } else {
+                            activationMessage.removeClassName('hidden').addClassName('admin__field-error');
+                        }
+                    } catch (e) {
+                        activationMessage.removeClassName('hidden').addClassName('admin__field-error');
+                    }
+                    activationMessage.update(result);
+                }
+            });
+        }
+
+        window.activateSend = activateSend;
+//]]>
+
+    });
+</script>
+<div class="actions actions-activation-send">
+    <p class="admin__field-error hidden" id="activation_result" style="margin-bottom:10px;"></p>
+    <button onclick="activateSend(); return false;" class="action-activate-send" type="button" id="<?= /* @noEscape */
+    $block->getHtmlId() ?>">
+        <span><?= $block->escapeHtml($block->getButtonLabel()) ?></span>
+    </button>
+</div>

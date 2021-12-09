@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- order/quote attributes -->
+    <type name="Magento\Quote\Model\Quote\Item\ToOrderItem">
+        <plugin name="fast_uuid_quote_to_order_item" type="Fast\Checkout\Plugin\Quote\FastUuidQuoteToOrderItem"/>
+    </type>
+    <!-- custom module logger -->
+    <type name="Fast\Checkout\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Fast\Checkout\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">Fast_Checkout_Log</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">Fast\Checkout\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- end custom module logger -->
+    <preference for="Fast\Checkout\Api\RestApiLogRepositoryInterface"
+                type="Fast\Checkout\Model\RestApiLogRepository"/>
+    <preference for="Fast\Checkout\Api\Data\RestApiLogInterface" type="Fast\Checkout\Model\RestApiLog"/>
+    <preference for="Fast\Checkout\Api\Data\RestApiLogSearchResultsInterface"
+                type="Fast\Checkout\Model\RestApiLogSearchResults"/>
+    <type name="Magento\Webapi\Controller\Rest">
+        <plugin name="rest-api-log" type="Fast\Checkout\Plugin\RestApiLog"/>
+    </type>
+    <preference for="Fast\Checkout\Api\DoRequestLogRepositoryInterface"
+                type="Fast\Checkout\Model\DoRequestLogRepository"/>
+    <preference for="Fast\Checkout\Api\Data\DoRequestLogInterface" type="Fast\Checkout\Model\Data\DoRequestLog"/>
+    <preference for="Fast\Checkout\Api\Data\DoRequestLogSearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults"/>
+    <type name="Magento\Quote\Api\Data\CartItemInterface">
+        <plugin name="quote_item_fast_order_item_uuid"
+                type="Fast\Checkout\Plugin\Uuid\LoadExtensionAttributes" sortOrder="1"/>
+    </type>
+    <type name="Magento\Sales\Api\Data\ShipmentItemInterface">
+        <plugin name="order_item_fast_order_item_uuid"
+                type="Fast\Checkout\Plugin\Uuid\LoadShipItemExtensionAttributes" sortOrder="1"/>
+    </type>
+    <type name="Magento\Quote\Api\Data\CartInterface">
+        <plugin name="quote_fast_order_id"
+                type="Fast\Checkout\Plugin\Uuid\LoadQuoteExtensionAttributes" sortOrder="1"/>
+    </type>
+    <type name="Magento\Quote\Api\CartItemRepositoryInterface">
+        <plugin name="FastOrderItemUuidExtensionAttribute"
+                type="Fast\Checkout\Plugin\Uuid\AddFastOrderItemUuid"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Item\Repository">
+        <plugin name="FastOrderItemUuidExtensionAttributeCart"
+                type="Fast\Checkout\Plugin\Uuid\AddFastOrderItemUuidCart"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Item\ToOrderItem">
+        <plugin name="fast_uuid_to_order_item" type="Fast\Checkout\Plugin\FastAttributeQuoteToOrderItem"/>
+    </type>
+    <type name="Magento\Sales\Api\OrderRepositoryInterface">
+        <plugin name="fast_order_id_order" type="Fast\Checkout\Plugin\Api\OrderRepository"/>
+    </type>
+    <type name="Magento\Quote\Model\QuoteManagement">
+        <plugin name="fast_order_id_cart" type="Fast\Checkout\Plugin\Api\CartManagement"/>
+    </type>
+    <type name="Magento\Quote\Model\QuoteRepository">
+        <plugin name="fast_order_id_cart" type="Fast\Checkout\Plugin\Api\CartRepository"/>
+    </type>
+    <type name="Magento\Sales\Model\Order\Payment\State\CaptureCommand">
+        <plugin name="fast_order_paid_status" type="Fast\Checkout\Plugin\Sales\Model\StatusOnCapture"/>
+    </type>
+</config>

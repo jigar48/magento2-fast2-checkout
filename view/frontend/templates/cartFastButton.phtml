@@ -1,0 +1,65 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * @var $block
+ * @var $viewModel CheckoutButton
+ */
+$viewModel = $block->getViewModel();
+if ($viewModel->isFastEnabled() && $viewModel->areAllProductsFast()) : ?>
+    <div class="fast-button-wrapper">
+        <fast-checkout-button id="fast-button"
+            <?= /* @noEscape */
+            $viewModel->useDarkTheme() ? 'dark' : '' ?>
+        ></fast-checkout-button>
+        <span class="fast-or-text"><?= $block->escapeHtml(__('OR')) ?></span>
+    </div>
+    <script>
+    require([
+        'jquery',
+        'fastConfig',
+        'clearCart'
+    ],
+    function (
+        $,
+        fastConfigFactory,
+        fastCartCleanup
+    ) {
+        var fastConfig     = fastConfigFactory();
+        var $checkoutButton = document.querySelector("#fast-button");
+
+        var theme = 'dark';
+        var cartId = 'notset';
+        var appId = 'notset';
+         $.ajax({
+            url: '/fast/config/fast',
+            type: 'GET',
+            dataType: 'json'
+        }).then(function (data) {
+            if (data) {
+                theme = data.theme;
+                cartId = data.cartId;
+                appId = data.appId;
+            }
+        });
+        $checkoutButton.addEventListener("click", event => {
+            if (appId != null) {
+                // Bail if Fast is not loaded
+                if (typeof Fast !== 'function') {
+                    console.error('Fast not loaded, please reload the page and try again.');
+                    return false;
+                }
+                Fast.checkout({
+                    appId: appId,
+                    buttonId: event.target.id,
+                    cartId: cartId,
+                    theme: theme
+                });
+            }
+        });
+    });
+    </script>
+<?php endif; ?>

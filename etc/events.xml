@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Fast_Checkout
+ *
+ * PHP version 7.3
+ *
+ * @package   Fast_Checkout
+ * @author    Fast <hi@fast.co>
+ * @copyright 2021 Copyright Fast AF, Inc., https://www.fast.co/
+ * @license   https://opensource.org/licenses/OSL-3.0 OSL-3.0
+ * @link      https://www.fast.co/
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_shipment_save_after">
+        <observer name="notify_fast_on_shipment" instance="Fast\Checkout\Observer\NotifyFastOnShipment"/>
+        <observer name="fast_automatic_invoice" instance="Fast\Checkout\Observer\CreateInvoiceOnShipment"/>
+    </event>
+    <event name="sales_model_service_quote_submit_before">
+        <observer name="save_fast_order_id" instance="Fast\Checkout\Observer\SetFastOrderId"/>
+        <observer name="quote_submit_before" instance="Fast\Checkout\Observer\QuoteSubmitBefore"/>
+    </event>
+    <event name="checkout_submit_all_after">
+        <observer name="guest_to_customer" instance="Fast\Checkout\Observer\UpdateGuestOrderWithCustomerData"/>
+        <observer name="invoice_fast_orders" instance="Fast\Checkout\Observer\InvoiceFastOrderWithCapture"/>
+    </event>
+    <event name="sales_order_shipment_save_before">
+        <observer name="fast_order_item_uuid_to_ship_item" instance="Fast\Checkout\Observer\BeforeShipment"/>
+    </event>
+</config>

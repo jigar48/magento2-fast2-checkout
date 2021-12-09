@@ -1,0 +1,18 @@
+<?php
+/**
+ * @var Magento\Framework\View\Element\Template $block
+ * @var Fast\Checkout\ViewModel\CheckoutButton $viewModel
+ */
+$viewModel = $block->getViewModel();
+?>
+<div id="pdp-fast-button" data-bind="scope:'fastCheckout'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+
+<script type="text/x-magento-init">
+        {
+            "#pdp-fast-button": {
+                "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
+            }
+        }
+</script>

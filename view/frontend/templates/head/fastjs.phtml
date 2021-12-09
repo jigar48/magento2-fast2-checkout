@@ -1,0 +1,5 @@
+<?php
+$viewModel = $block->getViewModel();
+$url = $viewModel->getFastJsUrl();
+?>
+<script type="text/javascript" src="<?= $block->escapeUrl($url); ?>"></script>

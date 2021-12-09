@@ -1,0 +1,64 @@
+{
+    "fast_checkout_rest_api_log": {
+        "column": {
+            "api_log_id": true,
+            "source": true,
+            "created_at": true,
+            "method": true,
+            "path": true,
+            "content": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "fast_checkout_dorequestlog": {
+        "column": {
+            "dorequestlog_id": true,
+            "request_id": true,
+            "body": true,
+            "attempts": true,
+            "status": true,
+            "response_content": true,
+            "priority": true,
+            "created_at": true,
+            "updated_at": true,
+            "retry_required": true,
+            "uri_endpoint": true,
+            "request_method": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "sales_order": {
+        "column": {
+            "fast_order_id": true
+        }
+    },
+    "sales_order_grid": {
+        "column": {
+            "fast_order_id": true
+        }
+    },
+    "quote": {
+        "column": {
+            "fast_order_id": true
+        }
+    },
+  "quote_item": {
+    "column": {
+      "fast_order_item_uuid": true
+    }
+  },
+  "sales_order_item": {
+    "column": {
+      "fast_order_item_uuid": true
+    }
+  },
+  "sales_shipment_item": {
+    "column": {
+      "fast_order_item_uuid": true
+    }
+    }
+}

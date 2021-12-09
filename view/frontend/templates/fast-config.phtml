@@ -1,0 +1,32 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * @var $viewModel CheckoutButton
+ */
+
+use Fast\Checkout\ViewModel\CheckoutButton;
+
+?>
+<?php
+$viewModel = $block->getViewModel();
+?>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Fast_Checkout/js/fast-config": {
+            "fastEnabled": <?= $viewModel->isFastEnabled() ? 'true' : 'false' ?>,
+            "appId": "<?= /** @noEscape */ $viewModel->getFastAppId() ?>",
+            "appUri": "<?= /** @noEscape */ $viewModel->getFastUri() ?>",
+            "coupon": "<?= /** @noEscape */ $viewModel->getCustomerCartDiscount() ?>",
+            "buttonTheme": "<?= /** @noEscape */ $viewModel->useDarkTheme() ? 'dark' : '' ?>",
+            "clearCartUrl": "<?= /** @noEscape */ $viewModel->getClearCartUrl() ?>",
+            "areAllProductsFast": <?= $viewModel->areAllProductsFast() ? 'true' : 'false' ?>,
+            "isProductFast": <?= $viewModel->isFastProduct() ? 'true' : 'false' ?>
+        }
+    }
+}
+</script>

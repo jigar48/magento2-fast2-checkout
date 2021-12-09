@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Fast_Checkout
+ *
+ * PHP version 7.3
+ *
+ * @package   Fast_Checkout
+ * @author    Fast <hi@fast.co>
+ * @copyright 2021 Copyright Fast AF, Inc., https://www.fast.co/
+ * @license   https://opensource.org/licenses/OSL-3.0 OSL-3.0
+ * @link      https://www.fast.co/
+ */
+-->
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp:etc/csp_whitelist.xsd">
+    <policies>
+        <policy id="default-src">
+            <values>
+                <value id="fast_default" type="host">api.fast.co</value>
+            </values>
+        </policy>
+        <policy id="script-src">
+            <values>
+                <value id="fast_script" type="host">js.fast.co</value>
+                <value id="fast_sandbox_script" type="host">js.sandbox.fast.co</value>
+            </values>
+        </policy>
+        <policy id="style-src">
+            <values>
+                <value id="google_fonts_api" type="host">fonts.googleapis.com</value>
+            </values>
+        </policy>
+        <policy id="font-src">
+            <values>
+                <value id="google_fonts" type="host">fonts.gstatic.com</value>
+            </values>
+        </policy>
+        <policy id="connect-src">
+            <values>
+                <value id="fast_connect" type="host">api.fast.co</value>
+                <value id="fast_sandbox_connect" type="host">api.sandbox.fast.co</value>
+                <value id="fast_checkout_sandbox" type="host">checkout.sandbox.fast.co</value>
+                <value id="fast_checkout" type="host">checkout.fast.co</value>
+            </values>
+        </policy>
+        <policy id="img-src">
+            <values>
+                <value id="data" type="host">data:</value>
+            </values>
+        </policy>
+    </policies>
+</csp_whitelist>
+

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="product.info.options.wrapper.bottom">
+            <block class="Magento\Framework\View\Element\Template" name="fast.checkout.button"
+                   template="Fast_Checkout::product/view/fast-pdp-button.phtml" after="product.info.addtocart">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Fast\Checkout\ViewModel\CheckoutButton</argument>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="components" xsi:type="array">
+                            <item name="fastCheckout" xsi:type="array">
+                                <item name="component" xsi:type="string">Fast_Checkout/js/view/pdp/pdp-fast-button</item>
+                                <item name="config" xsi:type="array">
+                                    <item name="template" xsi:type="string">Fast_Checkout/pdp/pdp-fast-button</item>
+                                </item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>
